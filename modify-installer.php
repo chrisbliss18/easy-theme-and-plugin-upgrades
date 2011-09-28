@@ -207,7 +207,8 @@ if ( ! class_exists( 'ETUModifyInstaller' ) ) {
 			
 			
 			$this->_zip_url = $zip_url;
-			add_action( 'admin_notices', array( &$this, 'show_message' ) );
+			
+			add_action( 'all_admin_notices', array( &$this, 'show_message' ) );
 		}
 		
 		function show_message() {

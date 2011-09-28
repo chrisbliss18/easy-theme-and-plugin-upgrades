@@ -1,2 +1,4 @@
 1.0.0 - 2011-07-06 - Chris Jean
 	Release-ready
+1.0.1 - 2011-09-28 - Chris Jean
+	Fixed an issue with running upgrades on multisite networks
