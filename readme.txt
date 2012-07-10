@@ -2,7 +2,7 @@
 Contributors: chrisbliss18
 Tags: upload, plugins, themes, upgrade
 Requires at least: 3.0
-Tested up to: 3.2.1
+Tested up to: 3.4.1
 Stable tag: 1.0.1
 
 This plugin allows for installed themes to be upgraded by using the Appearance Add New Themes > Upload feature of WordPress. Without this plugin, themes can only be installed using this method, requiring you to first delete the theme before installing the newer version. Now features the same easy upgrading for plugins via the Plugins > Add New > Upload page.
