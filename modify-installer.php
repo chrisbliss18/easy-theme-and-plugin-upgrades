@@ -28,7 +28,7 @@ if ( ! class_exists( 'ETUModifyInstaller' ) ) {
 			$text = "<div style='width:600px;'>\n";
 			$text .= "<p><i>By default, the installer will not overwrite an existing {$this->_type}. Change the following option to \"Yes\" to allow this installer to perform upgrades as well.</i></p>";
 			$text .= "<p>Upgrade existing {$this->_type}? <select name='upgrade_existing'><option value=''>No</option><option value='yes'>Yes</option></select></p>\n";
-			$text .= "<i><p>If a {$this->_type} is upgraded, the following process will be used:</p>\n";
+			$text .= "<p>If a {$this->_type} is upgraded, the following process will be used:</p>\n";
 			$text .= "<ol>\n";
 			$text .= "<li>A backup zip of the existing {$this->_type} will be created and added to the <a href='" . admin_url( 'upload.php' ) . "'>Media Library</a>.</li>\n";
 			$text .= "<li>If the selected {$this->_type} is active, the site will display a 'Site being updated' message until the upgrade has finished. This typically lasts a few seconds at most.</li>\n";
