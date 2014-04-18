@@ -1,5 +1,5 @@
 === Easy Theme and Plugin Upgrades ===
-Contributors: chrisbliss18
+Contributors: chrisjean
 Tags: upload, plugins, themes, upgrade
 Requires at least: 3.0
 Tested up to: 3.9
