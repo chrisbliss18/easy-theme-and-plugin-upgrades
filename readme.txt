@@ -3,7 +3,7 @@ Contributors: chrisbliss18
 Tags: upload, plugins, themes, upgrade
 Requires at least: 3.0
 Tested up to: 3.9
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 
 Easily upgrade your themes and plugins using zip files without removing the theme or plugin first.
 
@@ -47,3 +47,4 @@ __Easy Theme and Plugin Upgrades__ was created to make the life of WordPress use
 * 1.0.0 - 2011-07-06 - Initial release version
 * 1.0.1 - 2011-09-28 - Fixed an issue with the "The site is being updated and will be back in a few minutes" message showing on the frontend of the site for a few minutes after an upgrade. This only happened on multisite networks.
 * 1.0.2 - 2013-08-20 - Removed a stray &lt;i&gt; tag in the Install Plugins screen that caused problems with installing plugins on WPEngine sites.
+* 1.0.3 - 2014-04-18 - Added compatibility for theme upgrades in WordPress 3.9.

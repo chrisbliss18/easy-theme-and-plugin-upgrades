@@ -8,26 +8,26 @@ if ( ! class_exists( 'ETUModifyInstaller' ) ) {
 		
 		
 		function ETUModifyInstaller() {
-			if ( preg_match( '|update.php|', $_SERVER['REQUEST_URI'] ) && isset( $_REQUEST['action'] ) ) {
-				if ( 'upload-theme' === $_REQUEST['action'] )
+			if ( preg_match( '/update\.php/', $_SERVER['REQUEST_URI'] ) && isset( $_REQUEST['action'] ) ) {
+				if ( 'upload-theme' === $_REQUEST['action'] ) {
 					$this->_type = 'theme';
-				else if ( 'upload-plugin' === $_REQUEST['action'] )
+				} else if ( 'upload-plugin' === $_REQUEST['action'] ) {
 					$this->_type = 'plugin';
+				}
 				
-				if ( ! empty( $this->_type ) )
-					add_action( 'admin_init', array( &$this, 'handle_upgrades' ), 100 );
+				if ( ! empty( $this->_type ) ) {
+					add_action( 'admin_init', array( $this, 'handle_upgrades' ), 100 );
+				}
 			}
 			
-			add_action( "install_themes_upload", array( &$this, 'start_theme_output_buffering' ), 0 );
-			add_action( "install_themes_upload", array( &$this, 'end_output_buffering' ), 20 );
-			add_action( "install_plugins_upload", array( &$this, 'start_plugin_output_buffering' ), 0 );
-			add_action( "install_plugins_upload", array( &$this, 'end_output_buffering' ), 20 );
+			add_action( 'load-theme-install.php', array( $this, 'start_theme_output_buffering' ) );
+			add_action( 'load-plugin-install.php', array( $this, 'start_plugin_output_buffering' ) );
 		}
 		
 		function filter_output( $output ) {
-			$text = "<div style='width:600px;'>\n";
+			$text = "<div style='max-width:600px;'>\n";
 			$text .= "<p><i>By default, the installer will not overwrite an existing {$this->_type}. Change the following option to \"Yes\" to allow this installer to perform upgrades as well.</i></p>";
-			$text .= "<p>Upgrade existing {$this->_type}? <select name='upgrade_existing'><option value=''>No</option><option value='yes'>Yes</option></select></p>\n";
+			$text .= "<p>Upgrade existing {$this->_type}? <select name='caj_etu_upgrade_existing'><option value=''>No</option><option value='yes'>Yes</option></select></p>\n";
 			$text .= "<p>If a {$this->_type} is upgraded, the following process will be used:</p>\n";
 			$text .= "<ol>\n";
 			$text .= "<li>A backup zip of the existing {$this->_type} will be created and added to the <a href='" . admin_url( 'upload.php' ) . "'>Media Library</a>.</li>\n";
@@ -38,30 +38,47 @@ if ( ! class_exists( 'ETUModifyInstaller' ) ) {
 			$text .= "</ol><br />\n";
 			$text .= "</div>\n";
 			
-			$output = preg_replace( '|(<input type="file".+?\n)|', "\$1$text", $output );
+			$output = preg_replace( '/(<input [^>]*name="(?:theme|plugin)zip".+?\n)/', "\$1$text", $output );
 			
 			return $output;
 		}
 		
 		function start_theme_output_buffering() {
 			$this->_type = 'theme';
-			ob_start( array( &$this, 'filter_output' ) );
+			ob_start( array( $this, 'filter_output' ) );
 		}
 		
 		function start_plugin_output_buffering() {
 			$this->_type = 'plugin';
-			ob_start( array( &$this, 'filter_output' ) );
+			ob_start( array( $this, 'filter_output' ) );
 		}
 		
-		function end_output_buffering() {
-			ob_end_flush();
+		function _get_themes() {
+			global $wp_themes;
+			
+			if ( isset( $wp_themes ) ) {
+				return $wp_themes;
+			}
+			
+			$themes = wp_get_themes();
+			$wp_themes = array();
+			
+			foreach ( $themes as $theme ) {
+				$name = $theme->get( 'Name' );
+				if ( isset( $wp_themes[$name] ) )
+					$wp_themes[$name . '/' . $theme->get_stylesheet()] = $theme;
+				else
+					$wp_themes[$name] = $theme;
+			}
+			
+			return $wp_themes;
 		}
 		
 		function _get_theme_data( $directory ) {
 			$data = array();
 			
-			$themes = get_themes();
-			$active_theme = current_theme_info();
+			$themes = $this->_get_themes();
+			$active_theme = wp_get_theme();
 			$current_theme = array();
 			
 			foreach ( (array) $themes as $theme_name => $theme_data ) {
@@ -95,12 +112,15 @@ if ( ! class_exists( 'ETUModifyInstaller' ) ) {
 			$current_plugin = array();
 			
 			foreach ( (array) $plugins as $plugin_path_file => $plugin_data ) {
-				if ( $directory === reset( explode( '/', $plugin_path_file ) ) )
+				$path_parts = explode( '/', $plugin_path_file );
+				if ( $directory === reset( $path_parts ) ) {
 					$current_plugin = array( 'path' => $plugin_path_file, 'data' => $plugin_data );
+				}
 			}
 			
-			if ( empty( $current_plugin ) )
+			if ( empty( $current_plugin ) ) {
 				return $data;
+			}
 			
 			$data['version'] = $current_plugin['data']['Version'];
 			$data['name'] = $current_plugin['data']['Name'];
@@ -111,9 +131,24 @@ if ( ! class_exists( 'ETUModifyInstaller' ) ) {
 		}
 		
 		function handle_upgrades() {
-			if ( 'yes' !== $_POST['upgrade_existing'] ) {
-				$this->_errors[] = "You must select \"Yes\" from the \"Upgrade existing {$this->_type}?\" dropdown option in order to upgrade an existing {$this->_type}. <a href=\"" . admin_url( "{$this->_type}-install.php?tab=upload" ) . '">Try again</a>.';
-				add_action( 'admin_notices', array( &$this, 'show_upgrade_option_error_message' ) );
+			if ( empty( $_POST['caj_etu_upgrade_existing'] ) ) {
+				$this->_errors[] = "The Easy Theme and Plugin Upgrades plugin was unable to handle requests for this upgrade. Unfortunately, this setup may be incompatible with the plugin.";
+				add_action( 'admin_notices', array( $this, 'show_upgrade_option_error_message' ) );
+				
+				return;
+			}
+			
+			if ( 'yes' !== $_POST['caj_etu_upgrade_existing'] ) {
+				if ( 'plugin' == $this->_type ) {
+					$link = admin_url( "plugin-install.php?tab=upload" );
+				} else if ( version_compare( $GLOBALS['wp_version'], '3.8.9', '>' ) ) {
+					$link = admin_url( "theme-install.php" );
+				} else {
+					$link = admin_url( "theme-install.php?tab=upload" );
+				}
+				
+				$this->_errors[] = "You must select \"Yes\" from the \"Upgrade existing {$this->_type}?\" dropdown option in order to upgrade an existing {$this->_type}. <a href=\"$link\">Try again</a>.";
+				add_action( 'admin_notices', array( $this, 'show_upgrade_option_error_message' ) );
 				
 				return;
 			}
@@ -167,7 +202,7 @@ if ( ! class_exists( 'ETUModifyInstaller' ) ) {
 			
 			if ( 0 == $zip_result ) {
 				$this->_errors[] = "Unable to make a backup of the existing {$this->_type}. Will not proceed with the upgrade.";
-				add_action( 'admin_notices', array( &$this, 'show_upgrade_option_error_message' ) );
+				add_action( 'admin_notices', array( $this, 'show_upgrade_option_error_message' ) );
 				
 				return;
 			}
@@ -193,14 +228,14 @@ if ( ! class_exists( 'ETUModifyInstaller' ) ) {
 			
 			if ( ! WP_Filesystem() ) {
 				$this->_errors[] = 'Unable to initialize WP_Filesystem. Will not proceed with the upgrade.';
-				add_action( 'admin_notices', array( &$this, 'show_upgrade_option_error_message' ) );
+				add_action( 'admin_notices', array( $this, 'show_upgrade_option_error_message' ) );
 				
 				return;
 			}
 			
 			if ( ! $wp_filesystem->delete( $data['directory'], true ) ) {
 				$this->_errors[] = "Unable to remove the existing {$this->_type} directory. Will not proceed with the upgrade.";
-				add_action( 'admin_notices', array( &$this, 'show_upgrade_option_error_message' ) );
+				add_action( 'admin_notices', array( $this, 'show_upgrade_option_error_message' ) );
 				
 				return;
 			}
@@ -208,7 +243,7 @@ if ( ! class_exists( 'ETUModifyInstaller' ) ) {
 			
 			$this->_zip_url = $zip_url;
 			
-			add_action( 'all_admin_notices', array( &$this, 'show_message' ) );
+			add_action( 'all_admin_notices', array( $this, 'show_message' ) );
 		}
 		
 		function show_message() {

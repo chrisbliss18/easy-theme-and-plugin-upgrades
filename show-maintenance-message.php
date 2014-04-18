@@ -5,7 +5,7 @@ if ( ! class_exists( 'ETUShowMaintenanceMessage' ) ) {
 	class ETUShowMaintenanceMessage {
 		function ETUShowMaintenanceMessage() {
 			if ( false !== get_transient( 'etu-in-maintenance-mode' ) )
-				add_action( 'template_redirect', array( &$this, 'show_message' ) );
+				add_action( 'template_redirect', array( $this, 'show_message' ) );
 		}
 		
 		function show_message() {
