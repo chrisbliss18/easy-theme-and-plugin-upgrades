@@ -2,8 +2,8 @@
 Contributors: chrisjean
 Tags: upload, plugins, themes, upgrade
 Requires at least: 3.0
-Tested up to: 3.9
-Stable tag: 1.0.3
+Tested up to: 3.9.1
+Stable tag: 1.0.4
 
 Easily upgrade your themes and plugins using zip files without removing the theme or plugin first.
 
