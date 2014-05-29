@@ -16,11 +16,12 @@ __Easy Theme and Plugin Upgrades__ was created to make the life of WordPress use
 1. Download the latest zip file for your theme.
 1. Log into your WordPress site.
 1. Go to Appearance > Themes.
-1. Click the "Install Themes" tab.
-1. Click the Upload link below the main page tabs.
+1. Click the "Add New" button at the top of the page.
+1. Click the "Upload Theme" button at the top of the page.
+1. Click the file browse button to select your theme zip file. The button's text varies by browser. It typically says "Browse...", "Choose File", or "Choose...".
 1. Select the zip file with the new theme version to install.
 1. Select "Yes" from the "Upgrade existing theme?" option.
-1. Click "Install Now".
+1. Click the "Install Now" button.
 
 = Upgrading a Plugin =
 
