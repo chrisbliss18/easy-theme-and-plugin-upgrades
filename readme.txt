@@ -3,7 +3,9 @@ Contributors: chrisjean
 Tags: upload, plugins, themes, upgrade
 Requires at least: 4.4
 Tested up to: 4.5.3
-Stable tag: 1.0.5
+Stable tag: 1.0.6
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Easily upgrade your themes and plugins using zip files without removing the theme or plugin first.
 
@@ -43,11 +45,25 @@ __Easy Theme and Plugin Upgrades__ was created to make the life of WordPress use
 * PHP 5.2.4+
 * WordPress 4.4+
 
-== Version History ==
+== Changelog ==
 
-* 1.0.0 - 2011-07-06 - Initial release version
-* 1.0.1 - 2011-09-28 - Fixed an issue with the "The site is being updated and will be back in a few minutes" message showing on the frontend of the site for a few minutes after an upgrade. This only happened on multisite networks.
-* 1.0.2 - 2013-08-20 - Removed a stray &lt;i&gt; tag in the Install Plugins screen that caused problems with installing plugins on WPEngine sites.
-* 1.0.3 - 2014-04-18 - Added compatibility for theme upgrades in WordPress 3.9.
-* 1.0.4 - 2014-05-29 - Updated instructions on how to upgrade themes.
-* 1.0.5 - 2016-07-13 - Added support for PHP 7.
+= 1.0.6 =
+ * Bug Fix: Fixed updates not working with some formats of zip files.
+
+= 1.0.5 =
+ * Compatibility Fix: Added support for PHP 7.
+
+= 1.0.4 =
+ * Enhancement: Updated instructions on how to upgrade themes.
+
+= 1.0.3 =
+ * Compatibility Fix: Added compatibility for theme upgrades in WordPress 3.9.
+
+= 1.0.2 =
+ * Bug Fix: Removed a stray &lt;i&gt; tag in the Install Plugins screen that caused problems with installing plugins on WPEngine sites.
+
+= 1.0.1 =
+ * Bug Fix: Fixed an issue with the "The site is being updated and will be back in a few minutes" message showing on the frontend of the site for a few minutes after an upgrade. This only happened on multisite networks.
+
+= 1.0.0 =
+ * Initial release version

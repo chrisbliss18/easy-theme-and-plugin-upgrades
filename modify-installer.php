@@ -165,15 +165,21 @@ if ( ! class_exists( 'ETUModifyInstaller' ) ) {
 
 			$archive = new PclZip( $_FILES["{$this->_type}zip"]['tmp_name'] );
 
-			$directory = '';
 			$contents = $archive->listContent();
+			$directories = array();
 
 			foreach ( (array) $contents as $content ) {
-				if ( preg_match( '|^([^/]+)/$|', $content['filename'], $matches ) ) {
-					$directory = $matches[1];
-					break;
+				list( $directory ) = explode( '/', $content['filename'], 2 );
+				if ( isset( $directories[$directory] ) ) {
+					$directories[$directory]++;
+				} else {
+					$directories[$directory] = 1;
 				}
 			}
+			arsort( $directories );
+			reset( $directories );
+
+			$directory = key( $directories );
 
 			if ( 'theme' === $this->_type )
 				$data = $this->_get_theme_data( $directory );
