@@ -1,0 +1,87 @@
+<?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit();
+}
+
+
+final class CAJ_ETPU_Admin {
+	private static $instance;
+	private static $page_name = 'caj-etpu-admin';
+
+	private $page_ref;
+	private $plugin_file;
+
+
+	private function __construct() {
+		add_action( 'init', array( $this, 'init' ) );
+		add_action( 'load-update.php', array( $this, 'load_update_php' ) );
+	}
+
+	public static function get_instance() {
+		if ( ! self::$instance ) {
+			self::$instance = new self;
+		}
+
+		return self::$instance;
+	}
+
+	public function init() {
+		if ( ! is_multisite() || is_super_admin() ) {
+			add_action( 'admin_menu', array( $this, 'add_admin_pages' ) );
+			add_filter( 'plugin_action_links', array( $this, 'filter_plugin_action_links' ), 10, 4 );
+		}
+
+		add_action( 'network_admin_menu', array( $this, 'add_network_admin_pages' ) );
+		add_filter( 'network_admin_plugin_action_links', array( $this, 'filter_plugin_action_links' ), 10, 4 );
+	}
+
+	public function add_admin_pages() {
+		$this->page_ref = add_options_page( __( 'Easy Theme and Plugin Upgrades', 'easy-theme-and-plugin-upgrades' ), __( 'Easy Upgrades', 'easy-theme-and-plugin-upgrades' ), 'manage_options', self::$page_name, array( $this, 'settings_index' ) );
+
+		add_action( "load-{$this->page_ref}", array( $this, 'load_settings_page' ) );
+	}
+
+	public function add_network_admin_pages() {
+		$this->page_ref = add_submenu_page( 'settings.php', __( 'Easy Theme and Plugin Upgrades', 'easy-theme-and-plugin-upgrades' ), __( 'Easy Upgrades', 'easy-theme-and-plugin-upgrades' ), 'manage_options', self::$page_name, array( $this, 'settings_index' ) );
+
+		add_action( "load-{$this->page_ref}", array( $this, 'load_settings_page' ) );
+	}
+
+	public function filter_plugin_action_links( $actions, $plugin_file, $plugin_data, $context ) {
+		if ( isset( $plugin_data['url'] ) && 'https://wordpress.org/plugins/easy-theme-and-plugin-upgrades' !== rtrim( $plugin_data['url'], '/' ) ) {
+			return $actions;
+		}
+
+		$actions['caj-etpu-settings'] = sprintf( '<a href="%1$s" title="%2$s">%3$s</a>', self::get_page_url(), __( 'Manage theme and plugin upgrade settings.', 'easy-theme-and-plugin-upgrades' ), __( 'Settings', 'easy-theme-and-plugin-upgrades' ) );
+
+		return $actions;
+	}
+
+	public static function get_page_url() {
+		if ( is_network_admin() ) {
+			return network_admin_url( 'settings.php' ) . '?page=' . self::$page_name;
+		}
+
+		return admin_url( 'options-general.php' ) . '?page=' . self::$page_name;
+	}
+
+	public function load_settings_page() {
+		require( dirname( __FILE__ ) . '/settings-page.php' );
+	}
+
+	public function settings_index() {
+		do_action( 'caj_etpu_settings_page_index' );
+	}
+
+	public function load_update_php() {
+		add_action( 'admin_action_upload-theme', array( $this, 'load_upgrade_handler' ) );
+		add_action( 'admin_action_upload-plugin', array( $this, 'load_upgrade_handler' ) );
+	}
+
+	public function load_upgrade_handler() {
+		require_once( dirname( __FILE__ ) . '/upgrade-handler.php' );
+	}
+}
+
+CAJ_ETPU_Admin::get_instance();
