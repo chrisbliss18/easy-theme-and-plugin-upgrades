@@ -7,9 +7,23 @@ Description: Upgrade themes and plugins using a zip file without having to remov
 Author:      Chris Jean
 Author URI:  https://chrisjean.com/
 Version:     1.0.6-dev
-License:     GPL2
+License:     GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: easy-theme-and-plugin-upgrades
+
+Easy Theme and Plugin Upgrades is free software you can redistribute
+it and/or modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation, either version 2 of the
+License, or any later version.
+
+Easy Theme and Plugin Upgrades is distributed in the hope that it
+will be useful, but WITHOUT ANY WARRANTY; without even the implied
+warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
+the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Easy Theme and Plugin Upgrades. If not, see
+https://www.gnu.org/licenses/gpl-2.0.html.
 */
 
 
