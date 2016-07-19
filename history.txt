@@ -9,4 +9,6 @@
 1.0.4 - 2014-05-29 - Chris Jean
 	Updated instructions on how to upgrade themes.
 1.0.5 - 2016-07-13 - Chris Jean
-	Added support for PHP 7+.
+	Compatibility Fix: Added support for PHP 7+.
+1.0.6 - 2016-07-19 - Chris Jean
+	Bug Fix: Fixed incorrect handling of some zip file formats. Thanks to the team at https://kairaweb.com/ for helping solve this issue.

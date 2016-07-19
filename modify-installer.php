@@ -178,7 +178,7 @@ if ( ! class_exists( 'ETUModifyInstaller' ) ) {
 			}
 			arsort( $directories );
 			reset( $directories );
-			
+
 			$directory = key( $directories );
 
 			if ( 'theme' === $this->_type )

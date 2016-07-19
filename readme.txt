@@ -1,17 +1,25 @@
 === Easy Theme and Plugin Upgrades ===
 Contributors: chrisjean
-Tags: upload, plugins, themes, upgrade
+Tags: plugin, theme, upgrade, update, upload
 Requires at least: 4.4
 Tested up to: 4.5.3
-Stable tag: 1.0.5
+Stable tag: 1.0.6
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Easily upgrade your themes and plugins using zip files without removing the theme or plugin first.
 
 == Description ==
 
-__Easy Theme and Plugin Upgrades__ was created to make the life of WordPress users easier. Without this plugin, the only upgrade path you have for download zip plugins and themes is to deactivate the theme/plugin, delete it, upload, and reactivate. With this plugin, upgrading is as simple as selecting the zip file to upload, selecting "Yes" from a drop-down, and clicking "Install Now".
+WordPress has a built-in feature to install themes and plugins by supplying a zip file. Unfortunately, you cannot upgrade a theme or plugin using the same process. Instead, WordPress will say "destination already exists" when trying to upgrade using a zip file and will fail to upgrade the theme or plugin.
 
-= Upgrading a Theme =
+Easy Theme and Plugin Upgrades fixes this limitation in WordPress. When active, you get an option to allow the theme or plugin to be upgraded.
+
+While upgrading, a backup copy of the old theme or plugin is first created. This allows you to install the old version in case of problems with the new version.
+
+== Frequently Asked Questions ==
+
+= How do I upgrade a theme? =
 
 1. Download the latest zip file for your theme.
 1. Log into your WordPress site.
@@ -23,14 +31,14 @@ __Easy Theme and Plugin Upgrades__ was created to make the life of WordPress use
 1. Select "Yes" from the "Upgrade existing theme?" option.
 1. Click the "Install Now" button.
 
-= Upgrading a Plugin =
+= How do I upgrade a plugin? =
 
 1. Download the latest zip file for your plugin.
 1. Log into your WordPress site.
 1. Go to Plugins > Add New and click the Upload tab at the top of the page.
 1. Select the zip file with the new plugin version to install.
 1. Select "Yes" from the "Upgrade existing plugin?" option.
-1. Click "Install Now".
+1. Click the "Install Now" button.
 
 == Installation ==
 
@@ -38,16 +46,30 @@ __Easy Theme and Plugin Upgrades__ was created to make the life of WordPress use
 1. Upload the entire easy-theme-and-plugin-upgrades directory to your `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
 
-== Requirements ==
+== Changelog ==
 
-* PHP 5.2.4+
-* WordPress 4.4+
+= 1.0.6 =
+ * Bug Fix: Fixed updates not working with some formats of zip files. Thanks to the team at [Kaira](https://kairaweb.com/) for helping solve this issue.
 
-== Version History ==
+= 1.0.5 =
+ * Compatibility Fix: Added support for PHP 7.
 
-* 1.0.0 - 2011-07-06 - Initial release version
-* 1.0.1 - 2011-09-28 - Fixed an issue with the "The site is being updated and will be back in a few minutes" message showing on the frontend of the site for a few minutes after an upgrade. This only happened on multisite networks.
-* 1.0.2 - 2013-08-20 - Removed a stray &lt;i&gt; tag in the Install Plugins screen that caused problems with installing plugins on WPEngine sites.
-* 1.0.3 - 2014-04-18 - Added compatibility for theme upgrades in WordPress 3.9.
-* 1.0.4 - 2014-05-29 - Updated instructions on how to upgrade themes.
-* 1.0.5 - 2016-07-13 - Added support for PHP 7.
+= 1.0.4 =
+ * Enhancement: Updated instructions on how to upgrade themes.
+
+= 1.0.3 =
+ * Compatibility Fix: Added compatibility for theme upgrades in WordPress 3.9.
+
+= 1.0.2 =
+ * Bug Fix: Removed a stray &lt;i&gt; tag in the Install Plugins screen that caused problems with installing plugins on WPEngine sites.
+
+= 1.0.1 =
+ * Bug Fix: Fixed an issue with the "The site is being updated and will be back in a few minutes" message showing on the frontend of the site for a few minutes after an upgrade. This only happened on multisite networks.
+
+= 1.0.0 =
+ * Initial release version
+
+== Upgrade Notice ==
+
+= 1.0.6 =
+Version 1.0.6 contains a bug fix that fixes a zip compatibility issue that many users have reported.
