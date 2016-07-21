@@ -154,6 +154,8 @@ class CAJ_ETPU_Plugin_Upgrader extends Plugin_Upgrader {
 		$zip_path .= "/$zip_file";
 		$zip_url  .= "/$zip_file";
 
+		require_once( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
+
 		$archive = new PclZip( $zip_path );
 
 		$zip_result = $archive->create( $directory, PCLZIP_OPT_REMOVE_PATH, dirname( $directory ) );
