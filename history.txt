@@ -12,3 +12,8 @@
 	Compatibility Fix: Added support for PHP 7+.
 1.0.6 - 2016-07-19 - Chris Jean
 	Bug Fix: Fixed incorrect handling of some zip file formats. Thanks to the team at https://kairaweb.com/ for helping solve this issue.
+2.0.0-dev - 2016-07-21 - Chris Jean
+	Enhancement: Removed the requirement for the user to select "Yes" from the drop down in order to initiate an update. This new version does not change the appearance of the upload form. Instead, it automatically creates a backup and performs an upgrade if the supplied plugin or theme already exists.
+	Enhancement: If a zip backup file cannot be created, the old directory is renamed to a new name in order to still keep a backup.
+	Enhancement: Updated the code to use a better way of integrating the upgrade logic. This approach should greatly reduce the potential for conflicts with other code or site configurations.
+	Enhancement: The backup details now are found in the same format as the rest of the upgrade messages.

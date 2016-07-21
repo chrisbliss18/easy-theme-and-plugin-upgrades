@@ -3,19 +3,21 @@ Contributors: chrisjean
 Tags: plugin, theme, upgrade, update, upload
 Requires at least: 4.4
 Tested up to: 4.5.3
-Stable tag: 1.0.6
+Stable tag: 2.0.0-dev
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Easily upgrade your themes and plugins using zip files without removing the theme or plugin first.
 
+
 == Description ==
 
 WordPress has a built-in feature to install themes and plugins by supplying a zip file. Unfortunately, you cannot upgrade a theme or plugin using the same process. Instead, WordPress will say "destination already exists" when trying to upgrade using a zip file and will fail to upgrade the theme or plugin.
 
-Easy Theme and Plugin Upgrades fixes this limitation in WordPress. When active, you get an option to allow the theme or plugin to be upgraded.
+Easy Theme and Plugin Upgrades fixes this limitation in WordPress by automatically upgrading the theme or plugin if it already exists.
 
 While upgrading, a backup copy of the old theme or plugin is first created. This allows you to install the old version in case of problems with the new version.
+
 
 == Frequently Asked Questions ==
 
@@ -40,6 +42,16 @@ While upgrading, a backup copy of the old theme or plugin is first created. This
 1. Select "Yes" from the "Upgrade existing plugin?" option.
 1. Click the "Install Now" button.
 
+= How do I access the backup of an old theme or plugin? =
+
+1. Log into your WordPress site.
+1. Go to Media > Library.
+1. Type "backup" into the search input and press the "Enter" key.
+1. Find the desired backup from the resulting list.
+1. Click the title of the desired backup.
+1. The URL to the backup file is listed on the right side of the page under "File URL". You can copy and paste that URL into your browser's URL bar in order to start a download.
+
+
 == Installation ==
 
 1. Download and unzip the latest release zip file
@@ -47,6 +59,12 @@ While upgrading, a backup copy of the old theme or plugin is first created. This
 1. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Changelog ==
+
+= 2.0.0 =
+ * Enhancement: Removed the requirement for the user to select "Yes" from the drop down in order to initiate an update. This new version does not change the appearance of the upload form. Instead, it automatically creates a backup and performs an upgrade if the supplied plugin or theme already exists.
+ * Enhancement: If a zip backup file cannot be created, the old directory is renamed to a new name in order to still keep a backup.
+ * Enhancement: Updated the code to use a better way of integrating the upgrade logic. This approach should greatly reduce the potential for conflicts with other code or site configurations.
+ * Enhancement: The backup details now are found in the same format as the rest of the upgrade messages.
 
 = 1.0.6 =
  * Bug Fix: Fixed updates not working with some formats of zip files. Thanks to the team at [Kaira](https://kairaweb.com/) for helping solve this issue.
@@ -69,7 +87,8 @@ While upgrading, a backup copy of the old theme or plugin is first created. This
 = 1.0.0 =
  * Initial release version
 
+
 == Upgrade Notice ==
 
-= 1.0.6 =
-Version 1.0.6 contains a bug fix that fixes a zip compatibility issue that many users have reported.
+= 2.0.0 =
+Version 2.0.0 fixes many of the site and plugin compatibility issues that people have reported and removes any need to tell the plugin to perform an upgrade.
