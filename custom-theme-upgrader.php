@@ -4,6 +4,9 @@ class CAJ_ETPU_Theme_Upgrader extends Theme_Upgrader {
 	public function install_package( $args = array() ) {
 		global $wp_filesystem;
 
+		error_reporting( E_ALL );
+		ini_set( 'display_errors', 1 );
+
 		if ( empty( $args['source'] ) || empty( $args['destination'] ) ) {
 			// Only run if the arguments we need are present.
 			return parent::install_package( $args );
@@ -121,7 +124,10 @@ class CAJ_ETPU_Theme_Upgrader extends Theme_Upgrader {
 		$zip_file = basename( $directory ) . "-{$data['version']}-$rand_string.zip";
 
 		// Reduce the chance that a timeout will occur while creating the zip file.
-		@set_time_limit( 300 );
+		@set_time_limit( 600 );
+
+		// Attempt to increase memory limits.
+		wp_raise_memory_limit( 'image' );
 
 		$zip_path .= "/$zip_file";
 		$zip_url  .= "/$zip_file";
