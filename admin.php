@@ -15,7 +15,7 @@ final class CAJ_ETPU_Admin {
 
 	public static function update_theme() {
 		if ( ! current_user_can( 'upload_themes' ) ) {
-			wp_die( __( 'Sorry, you are not allowed to install themes on this site.' ) );
+			wp_die( esc_html__( 'Sorry, you are not allowed to install themes on this site.' ) );
 		}
 
 		check_admin_referer( 'theme-upload' );
@@ -33,7 +33,7 @@ final class CAJ_ETPU_Admin {
 		$title = sprintf( __( 'Installing Theme from uploaded file: %s' ), esc_html( basename( $file_upload->filename ) ) );
 		$nonce = 'theme-upload';
 		$url = add_query_arg( array( 'package' => $file_upload->id ), 'update.php?action=upload-theme' );
-		$type = 'upload'; //Install plugin type, From Web or an Upload.
+		$type = 'upload'; // Install plugin type, From Web or an Upload.
 
 		require_once( dirname( __FILE__ ) . '/custom-theme-upgrader.php' );
 
@@ -51,7 +51,7 @@ final class CAJ_ETPU_Admin {
 
 	public static function update_plugin() {
 		if ( ! current_user_can( 'upload_plugins' ) ) {
-			wp_die( __( 'Sorry, you are not allowed to install plugins on this site.' ) );
+			wp_die( esc_html__( 'Sorry, you are not allowed to install plugins on this site.' ) );
 		}
 
 		check_admin_referer( 'plugin-upload' );
@@ -66,7 +66,7 @@ final class CAJ_ETPU_Admin {
 		$title = sprintf( __( 'Installing Plugin from uploaded file: %s' ), esc_html( basename( $file_upload->filename ) ) );
 		$nonce = 'plugin-upload';
 		$url = add_query_arg( array( 'package' => $file_upload->id ), 'update.php?action=upload-plugin' );
-		$type = 'upload'; //Install plugin type, From Web or an Upload.
+		$type = 'upload'; // Install plugin type, From Web or an Upload.
 
 		require_once( dirname( __FILE__ ) . '/custom-plugin-upgrader.php' );
 

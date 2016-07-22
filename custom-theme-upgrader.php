@@ -4,32 +4,29 @@ class CAJ_ETPU_Theme_Upgrader extends Theme_Upgrader {
 	public function install_package( $args = array() ) {
 		global $wp_filesystem;
 
-
 		if ( empty( $args['source'] ) || empty( $args['destination'] ) ) {
 			// Only run if the arguments we need are present.
 			return parent::install_package( $args );
 		}
 
-
 		$source_files = array_keys( $wp_filesystem->dirlist( $args['source'] ) );
 		$remote_destination = $wp_filesystem->find_folder( $args['destination'] );
 
-		//Locate which directory to copy to the new folder, This is based on the actual folder holding the files.
-		if ( 1 == count( $source_files ) && $wp_filesystem->is_dir( trailingslashit( $args['source'] ) . $source_files[0] . '/' ) ) { //Only one folder? Then we want its contents.
+		// Locate which directory to copy to the new folder, This is based on the actual folder holding the files.
+		if ( 1 === count( $source_files ) && $wp_filesystem->is_dir( trailingslashit( $args['source'] ) . $source_files[0] . '/' ) ) { // Only one folder? Then we want its contents.
 			$destination = trailingslashit( $remote_destination ) . trailingslashit( $source_files[0] );
-		} else if ( count( $source_files ) == 0 ) {
+		} elseif ( 0 === count( $source_files ) ) {
 			// Looks like an empty zip, we'll let the default code handle this.
 			return parent::install_package( $args );
 		} else { // It's only a single file, the upgrader will use the folder name of this file as the destination folder. Folder name is based on zip filename.
 			$destination = trailingslashit( $remote_destination ) . trailingslashit( basename( $args['source'] ) );
 		}
 
-
 		if ( is_dir( $destination ) && file_exists( "$destination/style.css" ) ) {
 			// This is an upgrade, clear the destination.
 			$args['clear_destination'] = true;
 
-			// Switch template strings to use upgrade terminology rather than install terminology
+			// Switch template strings to use upgrade terminology rather than install terminology.
 			$this->upgrade_strings();
 
 			// Replace default remove_old string to make the messages more meaningful.
@@ -41,11 +38,12 @@ class CAJ_ETPU_Theme_Upgrader extends Theme_Upgrader {
 	}
 
 	public function clear_destination( $destination ) {
+		global $wp_filesystem;
+
 		if ( ! is_dir( $destination ) || ! file_exists( "$destination/style.css" ) ) {
 			// This is an installation not an upgrade.
 			return parent::clear_destination( $destination );
 		}
-
 
 		$backup_url = $this->create_backup( $destination );
 
@@ -60,10 +58,8 @@ class CAJ_ETPU_Theme_Upgrader extends Theme_Upgrader {
 			return parent::clear_destination( $destination );
 		}
 
-
 		$this->skin->error( $backup_url );
 		$this->skin->feedback( __( 'Moving the old version of the theme to a new directory&#8230;', 'easy-theme-and-plugin-upgrades' ) );
-
 
 		$headers = array(
 			'version' => 'Version',
@@ -82,12 +78,11 @@ class CAJ_ETPU_Theme_Upgrader extends Theme_Upgrader {
 			}
 		}
 
-
 		if ( is_dir( "$directory/$new_name" ) ) {
 			// We gave it our best effort. Time to give up on the idea of having a backup.
 			$this->skin->error( __( 'Unable to find a new directory name to move the old version of the theme to. No backup will be created.', 'easy-theme-and-plugin-upgrades' ) );
 		} else {
-			$result = rename( $destination, "$directory/$new_name" );
+			$result = $wp_filesystem->move( $destination, "$directory/$new_name" );
 
 			if ( $result ) {
 				/* translators: 1: new theme directory name */
@@ -116,7 +111,6 @@ class CAJ_ETPU_Theme_Upgrader extends Theme_Upgrader {
 			return new WP_Error( 'caj-etpu-cannot-backup-no-destination-path', __( 'A theme backup can not be created since a destination path for the backup file could not be found.', 'easy-theme-and-plugin-upgrades' ) );
 		}
 
-
 		$headers = array(
 			'name'    => 'Theme Name',
 			'version' => 'Version',
@@ -126,10 +120,8 @@ class CAJ_ETPU_Theme_Upgrader extends Theme_Upgrader {
 		$rand_string = $this->get_random_characters( 10, 20 );
 		$zip_file = basename( $directory ) . "-{$data['version']}-$rand_string.zip";
 
-
 		// Reduce the chance that a timeout will occur while creating the zip file.
 		@set_time_limit( 300 );
-
 
 		$zip_path .= "/$zip_file";
 		$zip_url  .= "/$zip_file";
@@ -145,7 +137,6 @@ class CAJ_ETPU_Theme_Upgrader extends Theme_Upgrader {
 			return new WP_Error( 'caj-etpu-cannot-backup-zip-failed', sprintf( __( 'A theme backup can not be created as creation of the zip file failed with the following error: %1$s', 'easy-theme-and-plugin-upgrades' ), $archive->errorInfo( true ) ) );
 		}
 
-
 		$attachment = array(
 			'post_mime_type' => 'application/zip',
 			'guid'           => $zip_url,
@@ -160,7 +151,6 @@ class CAJ_ETPU_Theme_Upgrader extends Theme_Upgrader {
 			wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $zip_path ) );
 		}
 
-
 		return $zip_url;
 	}
 
@@ -170,7 +160,7 @@ class CAJ_ETPU_Theme_Upgrader extends Theme_Upgrader {
 		$length = rand( $min_length, $max_length );
 
 		for ( $count = 0; $count < $length; $count++ ) {
-			$rand_string .= $characters[rand( 0, strlen( $characters ) - 1 )];
+			$rand_string .= $characters[ rand( 0, strlen( $characters ) - 1 ) ];
 		}
 
 		return $rand_string;
