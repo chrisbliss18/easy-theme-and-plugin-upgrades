@@ -3,7 +3,7 @@ Contributors: chrisjean
 Tags: plugin, theme, upgrade, update, upload
 Requires at least: 4.4
 Tested up to: 4.5.3
-Stable tag: 2.0.0-dev
+Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -28,18 +28,16 @@ While upgrading, a backup copy of the old theme or plugin is first created. This
 1. Go to Appearance > Themes.
 1. Click the "Add New" button at the top of the page.
 1. Click the "Upload Theme" button at the top of the page.
-1. Click the file browse button to select your theme zip file. The button's text varies by browser. It typically says "Browse...", "Choose File", or "Choose...".
 1. Select the zip file with the new theme version to install.
-1. Select "Yes" from the "Upgrade existing theme?" option.
 1. Click the "Install Now" button.
 
 = How do I upgrade a plugin? =
 
 1. Download the latest zip file for your plugin.
 1. Log into your WordPress site.
-1. Go to Plugins > Add New and click the Upload tab at the top of the page.
+1. Go to Plugins > Add New.
+1. Click the "Upload Plugin" button at the top of the page.
 1. Select the zip file with the new plugin version to install.
-1. Select "Yes" from the "Upgrade existing plugin?" option.
 1. Click the "Install Now" button.
 
 = How do I access the backup of an old theme or plugin? =
