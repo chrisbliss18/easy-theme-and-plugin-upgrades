@@ -18,8 +18,14 @@ Easy Theme and Plugin Upgrades fixes this limitation in WordPress by automatical
 
 While upgrading, a backup copy of the old theme or plugin is first created. This allows you to install the old version in case of problems with the new version.
 
+Attention: Version 2.0.0 changed the functionality of the plugin. You are no longer required to select "Yes" from a drop down before the theme or plugin can be upgraded. The need for an upgrade is now detected automatically. So, if you are used to the old functionality of the plugin, do not be concerned about the absence of upgrade details on the theme and plugin upload pages. Simply upload the theme or plugin as if you were installing it, and the plugin will automatically handle upgrading as needed.
+
 
 == Frequently Asked Questions ==
+
+= Why does the plugin no longer show the drop down to select "Yes"? Is the plugin broken? =
+
+Version 2.0.0 no longer requires that a drop down is used to indicate that an upgrade is to be performed. The plugin now can determine if an upgrade is required automatically. This change not only streamlines the process for many users, it also fixed compatibility issues that some users experienced with older versions.
 
 = How do I upgrade a theme? =
 
