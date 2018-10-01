@@ -6,7 +6,7 @@ Plugin URI:  http://wordpress.org/extend/plugins/easy-theme-and-plugin-upgrades/
 Description: Upgrade themes and plugins using a zip file without having to remove them first.
 Author:      Chris Jean
 Author URI:  https://chrisjean.com/
-Version:     2.0.0
+Version:     2.0.1
 License:     GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: easy-theme-and-plugin-upgrades

@@ -17,3 +17,5 @@
 	Enhancement: If a zip backup file cannot be created, the old directory is renamed to a new name in order to still keep a backup.
 	Enhancement: Updated the code to use a better way of integrating the upgrade logic. This approach should greatly reduce the potential for conflicts with other code or site configurations.
 	Enhancement: The backup details now are found in the same format as the rest of the upgrade messages.
+2.0.1 - 2018-10-01 - Chris Jean
+	Compatibility Update: Updated to indicate compatibility with WordPress 4.9.8.

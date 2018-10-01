@@ -2,8 +2,8 @@
 Contributors: chrisjean
 Tags: plugin, theme, upgrade, update, upload
 Requires at least: 4.4
-Tested up to: 4.6
-Stable tag: 2.0.0
+Tested up to: 4.9.8
+Stable tag: 2.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,7 +25,7 @@ Attention: Version 2.0.0 changed the functionality of the plugin. You are no lon
 
 = Why does the plugin no longer show the drop down to select "Yes"? Is the plugin broken? =
 
-Version 2.0.0 no longer requires that a drop down is used to indicate that an upgrade is to be performed. The plugin now can determine if an upgrade is required automatically. This change not only streamlines the process for many users, it also fixed compatibility issues that some users experienced with older versions.
+Starting with version 2.0.0, this plugin no longer requires that a drop down is used to indicate that an upgrade is to be performed. The plugin now can determine if an upgrade is required automatically. This change not only streamlines the process for many users, it also fixed compatibility issues that some users experienced with older versions.
 
 = How do I upgrade a theme? =
 
@@ -64,6 +64,9 @@ Version 2.0.0 no longer requires that a drop down is used to indicate that an up
 
 == Changelog ==
 
+= 2.0.1 =
+ * Compatibility Update: Updated to indicate compatibility with WordPress 4.9.8.
+
 = 2.0.0 =
  * Enhancement: Removed the requirement for the user to select "Yes" from the drop down in order to initiate an update. This new version does not change the appearance of the upload form. Instead, it automatically creates a backup and performs an upgrade if the supplied plugin or theme already exists.
  * Enhancement: If a zip backup file cannot be created, the old directory is renamed to a new name in order to still keep a backup.
@@ -94,5 +97,5 @@ Version 2.0.0 no longer requires that a drop down is used to indicate that an up
 
 == Upgrade Notice ==
 
-= 2.0.0 =
-Version 2.0.0 fixes many of the site and plugin compatibility issues that people have reported and removes any need to tell the plugin to perform an upgrade.
+= 2.0.1 =
+Version 2.0.1 updates details about WordPress version compatibility. It contains no code changes.
